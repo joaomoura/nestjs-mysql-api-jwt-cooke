@@ -1,0 +1,38 @@
+version: "3.5"
+services:
+    api:
+        # image: thomas-oliver/nestjs-dockerized 
+        build:
+            dockerfile: Dockerfile
+            context: .
+        depends_on: 
+            - database
+        environment: 
+            # DATABASE_URL: postgres://user:password@postgres:5432/db
+            DATABASE_HOST: database
+            DATABASE_USER: root
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: nest
+            NODE_ENV: development
+            PORT: 3000
+        ports:
+            - "3000:3000"
+
+    database:
+        image: mysql:5.7
+        restart: always
+        ports:
+        - 3306:3306
+        env_file:
+        - .env
+        volumes:
+        - ~/database/nest:/var/lib/mysql
+
+    # postgres:
+    #     image: postgres:10.4
+    #     ports:
+    #         - "5432:5432"
+    #     environment: 
+    #         POSTGRES_USER: user
+    #         POSTGRES_PASSWORD: password
+    #         POSTGRES_DB: db
