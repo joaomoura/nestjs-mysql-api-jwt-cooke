@@ -1,10 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreateAutomobileDto } from './create-automobile.dto';
 
-export class UpdateAutomobileDto {
-  marca: string;
-  modelo: string;
-  cor: string;
-  placa: string;
-  tipo: string;
-  companyId: number;
-}
+export class UpdateAutomobileDto extends PartialType(CreateAutomobileDto) {}

@@ -1,2 +1,18 @@
-# nestjs-mysql-api-jwt-cooke
-API com Nestjs com mysql e jwt cooke authentication
+## Installation
+
+- Create a .env file from .env.example file and fill in the information
+- Run the following command:
+
+```bash
+yarn
+```
+
+## Running the app
+
+```bash
+# development mode
+yarn start:dev
+
+# production mode
+yarn start:prod
+```

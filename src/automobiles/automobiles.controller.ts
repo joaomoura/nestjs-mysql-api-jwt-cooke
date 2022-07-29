@@ -4,31 +4,30 @@ import { AutomobilesService } from './automobiles.service';
 import { CreateAutomobileDto } from './dto/create-automobile.dto';
 import { UpdateAutomobileDto } from './dto/update-automobile.dto';
 import JwtAuthenticationGuard from '../authentication/jwt-authentication.guard';
-import RequestWithUser from '../authentication/requestWithUser.interface';
+// import RequestWithUser from '../authentication/requestWithUser.interface';
 
 @Controller('automobiles')
 export class AutomobilesController {
   constructor(private readonly automobilesService: AutomobilesService) { }
   
-  @HttpCode(200)
   @UseGuards(JwtAuthenticationGuard)
   @Post()
   create(
     @Body() createAutomobileDto: CreateAutomobileDto,
-    @Req() request: RequestWithUser
+    // @Req() requestUser: RequestWithUser
   ) {
-    const user = request.user;
+    // const user = requestUser.user;
     return this.automobilesService.create({
       ...createAutomobileDto,
-      companyId: user.company.id
+      // companyId: user.company.id
     });
   }
 
   @HttpCode(200)
   @UseGuards(JwtAuthenticationGuard)
   @Get()
-  index(@Req() request: RequestWithUser) {
-    return this.automobilesService.find(request);
+  index() {
+    return this.automobilesService.find();
   }
 
   @HttpCode(200)
@@ -36,36 +35,34 @@ export class AutomobilesController {
   @Get(':id')
   show(
     @Param('id') id: string,
-    @Req() request: RequestWithUser
+    // @Req() requestUser: RequestWithUser
   ) {
-    return this.automobilesService.showById(+id, request);
+    return this.automobilesService.showById(+id);
   }
 
-  @HttpCode(200)
   @UseGuards(JwtAuthenticationGuard)
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updateAutomobileDto: UpdateAutomobileDto,
-    @Req() request: RequestWithUser
+    @Body() updateAutomobileDto: UpdateAutomobileDto
   ) {
     return this.automobilesService.update(+id, updateAutomobileDto);
   }
 
-  @HttpCode(200)
   @Delete(':id')
   delete(
     @Param('id') id: string,
-    @Req() request: RequestWithUser
+    // @Req() requestUser: RequestWithUser
   ) {
     return this.automobilesService.delete(+id);
   }
 
   @HttpCode(200)
+  @UseGuards(JwtAuthenticationGuard)
   @Get(':id/company')
   getAutomobileWithCompany(
     @Param('id') id: string,
-    @Req() request: RequestWithUser
+    // @Req() requestUser: RequestWithUser
   ) {
     return this.automobilesService.getAutomobileWithCompany(+id);
   }

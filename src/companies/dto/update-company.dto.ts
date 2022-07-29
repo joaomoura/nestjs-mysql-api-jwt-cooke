@@ -1,10 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreateCompanyDto } from './create-company.dto';
 
-export class UpdateCompanyDto {
-  nome: string;
-  cnpj: string;
-  endereco: string;
-  telefone: string;
-  qtd_motos: number;
-  qtd_carros: number;
-}
+export class UpdateCompanyDto extends PartialType(CreateCompanyDto) {}

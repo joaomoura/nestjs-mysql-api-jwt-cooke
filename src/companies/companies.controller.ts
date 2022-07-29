@@ -22,7 +22,7 @@ export class CompaniesController {
   @HttpCode(200)
   @UseGuards(JwtAuthenticationGuard)
   @Get()
-  index() {
+  index(@Req() requestUser: RequestWithUser) {
     return this.companiesService.find();
   }
 
@@ -31,7 +31,7 @@ export class CompaniesController {
   @Get(':id')
   show(
     @Param('id') id: string,
-    @Req() request: RequestWithUser
+    @Req() requestUser: RequestWithUser
   ) {
     return this.companiesService.showById(+id);
   }
@@ -41,7 +41,7 @@ export class CompaniesController {
   update(
     @Param('id') id: string,
     @Body() updateCompanyDto: UpdateCompanyDto,
-    @Req() request: RequestWithUser
+    @Req() requestUser: RequestWithUser
   ) {
     return this.companiesService.update(+id, updateCompanyDto);
   }
@@ -51,18 +51,79 @@ export class CompaniesController {
   delete(
     @Param('id') id: string,
     @Res() res,
-    @Req() request: RequestWithUser
+    @Req() requestUser: RequestWithUser
   ) {
     this.companiesService.delete(+id);
     return res.status(HttpStatus.OK).json({ "message": "Automóvel excluído com sucesso!" });
   }
 
   @HttpCode(200)
-  @Get(':id/automobiles')
-  getUserWithCompanies(
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(':id/parks')
+  getCompanyWithParks(
     @Param('id') id: string,
-    @Req() request: RequestWithUser
+    @Req() requestUser: RequestWithUser
+  ) {
+    return this.companiesService.getCompanyWithParks(+id);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(':id/automobiles')
+  getCompanyWithAutomobiles(
+    @Param('id') id: string,
+    @Req() requestUser: RequestWithUser
   ) {
     return this.companiesService.getCompanyWithAutomobiles(+id);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(':id/summary')
+  getCountParksInAndOutByCompany(
+    @Param('id') id: string,
+    @Req() requestUser: RequestWithUser
+  ) {
+    return this.companiesService.getCountParksInAndOutByCompany(+id);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(':id/in')
+  getCountParksInByCompany(
+    @Param('id') id: string,
+    @Req() requestUser: RequestWithUser
+  ) {
+    return this.companiesService.getCountParksInByCompany(+id);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(':id/out')
+  getCountParksOutByCompany(
+    @Param('id') id: string,
+    @Req() requestUser: RequestWithUser
+  ) {
+    return this.companiesService.getCountParksOutByCompany(+id);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(':id/in-hour')
+  getCountParksInByHour(
+    @Param('id') id: string,
+    @Req() requestUser: RequestWithUser
+  ) {
+    return this.companiesService.getCountParksInByHour(+id);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(':id/out-hour')
+  getCountParksOutByHour(
+    @Param('id') id: string,
+    @Req() requestUser: RequestWithUser
+  ) {
+    return this.companiesService.getCountParksOutByHour(+id);
   }
 }

@@ -5,12 +5,16 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Company } from '../companies/company.entity';
+import { Park } from 'src/parks/park.entity';
 
 @Entity()
 export class Automobile extends BaseEntity {
@@ -32,7 +36,7 @@ export class Automobile extends BaseEntity {
   @Column()
   tipo: string;
 
-  @Column()
+  @Column({ nullable: true })
   companyId: number;
 
   @Column()
@@ -43,8 +47,8 @@ export class Automobile extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(type => Company, company => company.automobiles, { cascade: ['insert'], eager: true })
-  public company: Company
+  @OneToMany(type => Park, park => park.automobile, { cascade: ['remove'] })
+  public parks: Park[];
 
   async validateTipo(tipo: string): Promise<boolean> {
     return await tipo === 'moto' || tipo === 'carro';

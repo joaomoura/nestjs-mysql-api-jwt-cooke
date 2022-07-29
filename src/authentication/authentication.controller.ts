@@ -4,6 +4,7 @@ import RegisterDto from './dto/register.dto';
 import RequestWithUser from './requestWithUser.interface';
 import { LocalAuthenticationGuard } from './localAuthentication.guard';
 import JwtAuthenticationGuard from './jwt-authentication.guard';
+import LogInDto from './dto/logIn.dto';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -19,7 +20,7 @@ export class AuthenticationController {
     @HttpCode(200)
     @UseGuards(LocalAuthenticationGuard)
     @Post('log-in')
-    async logIn(@Req() request: RequestWithUser, @Res() response) {
+    async logIn(@Body() loginDto: LogInDto, @Req() request: RequestWithUser, @Res() response) {
         const { user } = request;
         const cookie = this.authenticationService.getCookieWithJwtToken(user.id);
         response.setHeader('Set-Cookie', cookie);

@@ -4,13 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import User from '../users/user.entity';
-import { Automobile } from '../automobiles/automobile.entity';
+import { Park } from 'src/parks/park.entity';
 
 @Entity()
 export class Company extends BaseEntity {
@@ -46,6 +47,6 @@ export class Company extends BaseEntity {
   @OneToOne(() => User, (user: User) => user.company)
   public user: User;
 
-  @OneToMany(type => Automobile, automobile => automobile.company, { cascade: ['remove'] })
-  public automobiles: Automobile[]
+  @OneToMany(type => Park, park => park.company, { eager: true, cascade: ['remove'] })
+  public parks: Park[];
 }

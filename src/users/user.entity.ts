@@ -40,9 +40,6 @@ class User extends BaseEntity {
   @JoinColumn()
   public company: Company;
 
-  // @OneToOne(() => Company, (company: Company) => company.user, { cascade: ['insert'], eager: true })
-  // public company: Company;
-
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 8);

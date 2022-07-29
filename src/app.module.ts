@@ -13,8 +13,10 @@ import User from './users/user.entity';
 import { Automobile } from './automobiles/automobile.entity';
 import { Company } from './companies/company.entity';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { ParksModule } from './parks/parks.module';
+import { Park } from './parks/park.entity';
 
-const entities = [User, Automobile, Company];
+const entities = [User, Automobile, Company, Park];
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ const entities = [User, Automobile, Company];
     AuthenticationModule,
     CompaniesModule,
     AutomobilesModule,
+    ParksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
