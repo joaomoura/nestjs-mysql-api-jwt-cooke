@@ -91,3 +91,11 @@ $ npm run start:prod
  ##### Documentação das rotas via Swagger API em http://localhost:3000/docs 
  Aqui se encontra todas as rotas e as mesmas podem ser testadas via Insomnia/Postman
  Por favor, consultar a imagem abaixo.
+ 
+ ![image](https://user-images.githubusercontent.com/8227278/181750954-bff1dd6d-5ee7-4786-90ee-363a87e53441.png)
+ ![image](https://user-images.githubusercontent.com/8227278/181751076-84e9c0c9-db36-4d1e-8d5c-017dc92b05a4.png)
+ ![image](https://user-images.githubusercontent.com/8227278/181751421-9140c02d-ab0f-420a-bed8-5087f7269342.png)
+ ![image](https://user-images.githubusercontent.com/8227278/181751482-f3bce521-3400-43d0-92d4-f2157ec1267e.png)
+
+
+
